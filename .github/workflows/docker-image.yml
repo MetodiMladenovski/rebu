@@ -15,9 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker images
-      run: | 
-        sudo docker build .
-        sudo docker images
+      run: sudo docker build -t rebumk-image:latest .
       
   deploy:
     runs-on: ubuntu-latest
@@ -37,7 +35,7 @@ jobs:
     - name: Push Docker image to Docker Hub
       run: |
         sudo docker images
-        sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebumk-rebumk-app
+        sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebumk-image
 
     - name: Deploy to staging (or your target environment)
       run: |
