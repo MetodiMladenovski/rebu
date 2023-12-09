@@ -15,7 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker images
-      run: sudo docker build -t rebumk-image:latest .
+      run: | 
+        sudo docker build -t rebumk-image:latest .
+        sudo docker images
       
   deploy:
     runs-on: ubuntu-latest
