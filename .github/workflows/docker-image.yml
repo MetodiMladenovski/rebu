@@ -21,7 +21,7 @@ jobs:
 
     - name: Build and test Spring Boot app
       run: |
-        sudo ./mvnw clean install -B
+        sudo mvn clean install -B
 
   deploy:
     runs-on: ubuntu-latest
