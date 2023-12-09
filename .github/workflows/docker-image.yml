@@ -25,7 +25,8 @@ jobs:
 
     - name: Push Docker image to Docker Hub
       run: |
-        docker latest rebumk-image ${{ secrets.DOCKER_USERNAME }}/rebumk-image
+        sudo docker images
+        sudo docker latest rebumk-image ${{ secrets.DOCKER_USERNAME }}/rebumk-image
         sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebumk-image
       
   deploy:
