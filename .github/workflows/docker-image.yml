@@ -1,28 +1,76 @@
-name: CI/CD Pipeline
+# name: CI/CD Pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Set up JDK
+#       uses: actions/setup-java@v2
+#       with:
+#         distribution: 'adopt'
+#         java-version: '11'
+
+#     - name: Build and test Spring Boot app
+#       run: |
+#         sudo mvn clean install -B
+
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     needs: build
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Build Docker image
+#       run: |
+#         sudo docker build -t .
+
+#     - name: Login to Docker Hub
+#       uses: docker/login-action@v1
+#       with:
+#         username: ${{ secrets.DOCKER_USERNAME }}
+#         password: ${{ secrets.DOCKER_PASSWORD }}
+
+#     - name: Push Docker image to Docker Hub
+#       run: |
+#         sudo docker tag rebu ${{ secrets.DOCKER_USERNAME }}/rebu
+#         sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebu
+
+#     - name: Deploy to staging (or your target environment)
+#       run: |
+#         sudo docker-compose -f docker-compose.yml up -d
+
+
+name: CI Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '11'
-
-    - name: Build and test Spring Boot app
-      run: |
-        sudo mvn clean install -B
-
+    - uses: actions/checkout@v3
+    - name: Build the Docker images
+      run: sudo docker compose up
+      
   deploy:
     runs-on: ubuntu-latest
 
@@ -32,10 +80,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build Docker image
-      run: |
-        sudo docker build -t .
-
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
@@ -44,8 +88,8 @@ jobs:
 
     - name: Push Docker image to Docker Hub
       run: |
-        sudo docker tag rebu ${{ secrets.DOCKER_USERNAME }}/rebu
-        sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebu
+        sudo docker tag rebumk ${{ secrets.DOCKER_USERNAME }}/rebumk
+        sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebumk
 
     - name: Deploy to staging (or your target environment)
       run: |
