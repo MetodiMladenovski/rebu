@@ -34,7 +34,6 @@ jobs:
 
     - name: Push Docker image to Docker Hub
       run: |
-        sudo docker tag rebumk-rebumk-app ${{ secrets.DOCKER_USERNAME }}/rebumk-rebumk-app
         sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebumk-rebumk-app
 
     - name: Deploy to staging (or your target environment)
