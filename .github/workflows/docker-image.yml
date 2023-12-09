@@ -14,10 +14,16 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker images
-      run: | 
+    - name: Build Docker image
+      run: |
         sudo docker build -t rebumk-image:latest .
-        sudo docker images
+        sudo docker save -o rebumk-image.tar rebumk-image
+
+    - name: Archive Docker image
+      uses: actions/upload-artifact@v2
+      with:
+        name: rebumk-image
+        path: rebumk-image.tar
       
   deploy:
     runs-on: ubuntu-latest
@@ -37,8 +43,9 @@ jobs:
     - name: Push Docker image to Docker Hub
       run: |
         sudo docker images
+        docker latest rebumk-image ${{ secrets.DOCKER_USERNAME }}/rebumk-image
         sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebumk-image
 
-    - name: Deploy to staging (or your target environment)
+    - name: Deploy to staging
       run: |
         sudo docker-compose -f docker-compose.yml up -d
