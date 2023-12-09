@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  rebumkdb:
+    image: postgres:latest
+    container_name: rebudb
+    environment:
+      POSTGRES_DB: rebudb
+      POSTGRES_USER: meto
+      POSTGRES_PASSWORD: mete5
+    ports:
+      - "5321:5321"
+
+  rebumk-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rebumkapp
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rebumkdb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://rebumkdb:5432/rebudb
+      SPRING_DATASOURCE_USERNAME: meto
+      SPRING_DATASOURCE_PASSWORD: mete5
+
