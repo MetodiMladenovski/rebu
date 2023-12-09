@@ -34,7 +34,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t .
+        sudo docker build -t .
 
     - name: Login to Docker Hub
       uses: docker/login-action@v1
@@ -44,9 +44,9 @@ jobs:
 
     - name: Push Docker image to Docker Hub
       run: |
-        docker tag rebu ${{ secrets.DOCKER_USERNAME }}/rebu
-        docker push ${{ secrets.DOCKER_USERNAME }}/rebu
+        sudo docker tag rebu ${{ secrets.DOCKER_USERNAME }}/rebu
+        sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebu
 
     - name: Deploy to staging (or your target environment)
       run: |
-        docker-compose -f docker-compose.yml up -d
+        sudo docker-compose -f docker-compose.yml up -d
