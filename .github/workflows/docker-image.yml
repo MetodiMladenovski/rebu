@@ -19,11 +19,14 @@ jobs:
         sudo docker build -t rebumk-image:latest .
         sudo docker save -o rebumk-image.tar rebumk-image
 
+    - name: Copy the file
+      run: sudo cp /home/runner/work/rebu/rebu/rebumk-image.tar /home/
+
     - name: Archive Docker image
       uses: actions/upload-artifact@v2
       with:
         name: rebumk-image
-        path: rebumk-image.tar
+        path: /home/rebumk-image.tar
       
   deploy:
     runs-on: ubuntu-latest
