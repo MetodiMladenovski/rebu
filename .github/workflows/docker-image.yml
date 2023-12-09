@@ -25,7 +25,9 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Tag Docker image
-      run: sudo docker tag rebumk-image ${{ secrets.DOCKER_USERNAME }}/rebumk-image
+      run: |
+        sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}" docker.io
+        sudo docker tag rebumk-image ${{ secrets.DOCKER_USERNAME }}/rebumk-image
 
     - name: Push Docker image to Docker Hub
       run: sudo docker push ${{ secrets.DOCKER_USERNAME }}/rebumk-image:latest
