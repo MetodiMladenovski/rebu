@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rebumkapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rebumkapp
+  template:
+    metadata:
+      labels:
+        app: rebumkapp
+    spec:
+      containers:
+        - name: rebumkapp
+          image: meto8/rebumk-image:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgresql-initdb-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgresql-initdb-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: rebumk-storage
+              mountPath: /app/data
+      volumes:
+        - name: rebumk-storage
+          persistentVolumeClaim:
+            claimName: postgres-pv
