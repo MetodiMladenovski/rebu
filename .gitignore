@@ -32,4 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-/k8s/
+/k8s/postgres-config.yaml
+/k8s/postgres-secrets.yaml
+/k8s/rebumk-config.yaml
