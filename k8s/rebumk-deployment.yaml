@@ -40,3 +40,9 @@ spec:
         - name: rebumk-storage
           persistentVolumeClaim:
             claimName: postgres-pv
+        - name: rebumk-config
+          configMap:
+            name: rebumk-config
+            items:
+              - key: application.properties
+                path: rebumk-config

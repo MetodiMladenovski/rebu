@@ -10,17 +10,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class RebuApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RebuApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RebuApplication.class, args);
+    }
 
-	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
-	}
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
-	@Bean
-	public PasswordEncoder encoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
