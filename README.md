@@ -1,6 +1,5 @@
 # RebuMK
 
 
-Web project for Databases course on FINKI..
-
-TEST DENESKA ZA PROEKT!
+Web project for Databases course on FINKI.
+An application similar to Uber for Macedonia, hence the name RebuMK.
